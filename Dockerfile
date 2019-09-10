@@ -6,6 +6,8 @@ COPY pom.xml /app/
 COPY src /app/src/
 
 ENV MAVEN_CONFIG=/app/.m2
+ENV PLANTUML_LIMIT_SIZE=16384
+
 WORKDIR /app
 RUN mvn package
 
@@ -14,7 +16,7 @@ RUN mkdir /app/.m2 && chmod -R a+w /app
 EXPOSE 8080
 ENV HOME /app
 
-CMD java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war
+CMD java -Djetty.contextpath=/ -Xmx2g -jar target/dependency/jetty-runner.jar target/plantuml.war
 
 # To run with debugging enabled instead
 #CMD java -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog -Dorg.eclipse.jetty.LEVEL=DEBUG -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war

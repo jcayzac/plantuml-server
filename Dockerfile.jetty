@@ -20,6 +20,8 @@ RUN apt-get update && \
 USER jetty
 
 ENV GRAPHVIZ_DOT=/usr/bin/dot
+ENV PLANTUML_LIMIT_SIZE=16384
+ENV MAVEN_OPTS=-Xmx2G
 
 ARG BASE_URL=ROOT
 COPY --from=builderjetty /app/target/plantuml.war /var/lib/jetty/webapps/$BASE_URL.war
